@@ -351,31 +351,77 @@
                 choicesBlock.appendChild(btn);
             });
         } else {
-            // Финальная сцена — анкета + кнопка возврата
-            const inviteDiv = document.createElement('div');
-            inviteDiv.className = 'invite-card';
-            inviteDiv.innerHTML = `
-                <div style="font-size:1.9rem; color:#ffffff; margin-bottom:8px;">🎭 КУКС 2026 🎭</div>
-                <div style="color:#ffffff;">Стань помощником режиссера и войди в закулисье главной конференции по клиентскому сервису!</div>
-                <div class="skills">
-                    <span class="skill-badge">✍️ Стафф</span>
-                    <span class="skill-badge">🎨 Фигма</span>
-                    <span class="skill-badge">🎬 Видео/Актер</span>
-                    <span class="skill-badge">💻 Вайбкодинг</span>
-                    <span class="skill-badge">🎭 Театр</span>
-                    <span class="skill-badge">✨ Грим</span>
-                </div>
-                <div style="margin: 10px 0;"><strong>Стать помощником режиссеров КУКС 2026»</div>
-                <a href="https://staff.skbkontur.ru/survey/69df26ff76480cd7d9c0e088" target="_blank" class="apply-btn" id="applyNowBtn">
-                         `;
-            actionBlock.appendChild(inviteDiv);
-            
-            const applyBtn = document.getElementById('applyNowBtn');
-            if (applyBtn) {
-                applyBtn.onclick = () => {
-                    alert("✨ Спасибо! Твоя заявка принята. Мы свяжемся с тобой, чтобы обсудить твою сцену. Добро пожаловать в команду режиссёра УКС!");
-                };
-            }
+    // Финальная сцена — анкета + кнопка возврата
+    const inviteDiv = document.createElement('div');
+    inviteDiv.className = 'invite-card';
+    inviteDiv.style.display = 'flex';
+    inviteDiv.style.flexDirection = 'row';
+    inviteDiv.style.justifyContent = 'space-between';
+    inviteDiv.style.alignItems = 'center';
+    inviteDiv.style.flexWrap = 'wrap';
+    inviteDiv.style.gap = '20px';
+    inviteDiv.style.backgroundColor = 'rgba(0,0,0,0.7)'; // затемнение фона для контраста
+    
+    inviteDiv.innerHTML = `
+        <!-- ЛЕВАЯ ОБЛАСТЬ: большая кнопка -->
+        <div style="flex: 1; min-width: 250px;">
+            <button id="assistantBtn" style="
+                background: linear-gradient(135deg, #8b691b, #5c4512);
+                color: #ffffff;
+                font-size: 1.2rem;
+                font-weight: bold;
+                padding: 18px 28px;
+                border-radius: 60px;
+                border: none;
+                cursor: pointer;
+                width: 100%;
+                transition: all 0.3s ease;
+                box-shadow: 0 6px 14px rgba(0,0,0,0.4);
+                font-family: inherit;
+                letter-spacing: 1px;
+            " onmouseover="this.style.background='linear-gradient(135deg, #a87d2a, #7a5a1a)'; this.style.transform='scale(1.02)';" 
+               onmouseout="this.style.background='linear-gradient(135deg, #8b691b, #5c4512)'; this.style.transform='scale(1)';">
+                🎭 СТАТЬ ПОМОЩНИКОМ РЕЖИССЕРА НА КУКС 2026
+            </button>
+        </div>
+        
+        <!-- ПРАВАЯ ОБЛАСТЬ (весь текст белый) -->
+        <div style="flex: 2; min-width: 280px;">
+            <div style="font-size:1.9rem; color:#ffffff; margin-bottom:8px; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">🎭 КУКС 2026 🎭</div>
+            <div style="color:#ffffff; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">Стань помощником режиссера и войди в закулисье главной конференции по клиентскому сервису!</div>
+            <div class="skills" style="color:#ffffff;">
+                <span class="skill-badge" style="color:#ffffff; background:#d4af3740; border-color:#d4af37;">✍️ Стафф</span>
+                <span class="skill-badge" style="color:#ffffff; background:#d4af3740; border-color:#d4af37;">🎨 Фигма</span>
+                <span class="skill-badge" style="color:#ffffff; background:#d4af3740; border-color:#d4af37;">🎬 Видео/Актёр</span>
+                <span class="skill-badge" style="color:#ffffff; background:#d4af3740; border-color:#d4af37;">💻 Вайбкодинг</span>
+                <span class="skill-badge" style="color:#ffffff; background:#d4af3740; border-color:#d4af37;">🎭 Театр</span>
+                <span class="skill-badge" style="color:#ffffff; background:#d4af3740; border-color:#d4af37;">✨ Грим</span>
+            </div>
+            <div style="margin: 10px 0; color:#ffffff; text-shadow: 0 1px 2px rgba(0,0,0,0.5);"><strong>Твое задание:</strong> придумай сцену в стиле «театр + синергия»</div>
+            <a href="https://staff.skbkontur.ru/survey/69df26ff76480cd7d9c0e088" target="_blank" class="apply-btn" id="applyNowBtn" style="display: inline-block; color:#ffffff; background:#b57c1c;">
+                📝 ЗАПОЛНИТЬ АНКЕТУ
+            </a>
+        </div>
+    `;
+    actionBlock.appendChild(inviteDiv);
+    
+    // Обработчик для новой большой кнопки (левая область)
+    const assistantBtn = document.getElementById('assistantBtn');
+    if (assistantBtn) {
+        assistantBtn.onclick = () => {
+            // Открываем ссылку на анкету в новой вкладке
+            window.open('https://staff.skbkontur.ru/survey/69df26ff76480cd7d9c0e088', '_blank');
+            alert("✨ Спасибо за интерес! Твоя заявка принята. Мы свяжемся с тобой, чтобы обсудить твою сцену. Добро пожаловать в команду режиссера УКС!");
+        };
+    }
+    
+    // Обработчик для старой кнопки (правая область)
+    const applyBtn = document.getElementById('applyNowBtn');
+    if (applyBtn) {
+        applyBtn.onclick = () => {
+            alert("✨ Спасибо! Твоя заявка принята. Мы свяжемся с тобой, чтобы обсудить твою сцену. Добро пожаловать в команду режиссёра УКС!");
+        };
+                }
             
             // Кнопка перезапуска (начать сначала)
             const restartBtn = document.createElement('button');
