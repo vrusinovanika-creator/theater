@@ -315,7 +315,7 @@
                 choicesBlock.appendChild(btn);
             });
         } else {
-            // Финальная сцена — показываем анкету
+            // Финальная сцена — только одна кнопка
             const inviteDiv = document.createElement('div');
             inviteDiv.className = 'invite-card';
             inviteDiv.style.display = 'flex';
@@ -328,7 +328,7 @@
             
             inviteDiv.innerHTML = `
                 <div style="flex: 1; min-width: 250px;">
-                    <button id="assistantBtn" style="
+                    <a href="https://staff.skbkontur.ru/survey/69df26ff76480cd7d9c0e088" target="_blank" style="
                         background: linear-gradient(135deg, #8b691b, #5c4512);
                         color: white;
                         font-size: 1rem;
@@ -338,10 +338,15 @@
                         border: none;
                         cursor: pointer;
                         width: 100%;
+                        display: block;
+                        text-align: center;
+                        text-decoration: none;
                         font-family: inherit;
-                    ">
+                        box-sizing: border-box;
+                    " onmouseover="this.style.background='linear-gradient(135deg, #a87d2a, #7a5a1a)'" 
+                       onmouseout="this.style.background='linear-gradient(135deg, #8b691b, #5c4512)'">
                         🎭 СТАТЬ ПОМОЩНИКОМ РЕЖИССЕРА НА КУКС 2026
-                    </button>
+                    </a>
                 </div>
                 <div style="flex: 2; min-width: 260px;">
                     <div style="font-size:1.7rem; color:white;">🎭 КУКС 2026 🎭</div>
@@ -354,20 +359,11 @@
                         <span class="skill-badge">🎭 Театр</span>
                         <span class="skill-badge">✨ Грим</span>
                     </div>
-                    <a href="https://staff.skbkontur.ru/survey/69df26ff76480cd7d9c0e088" target="_blank" class="apply-btn">
-                        📝 СТАТЬ ПОМОЩНИКОМ
-                    </a>
                 </div>
             `;
             actionBlock.appendChild(inviteDiv);
             
-            const assistantBtn = document.getElementById('assistantBtn');
-            if (assistantBtn) {
-                assistantBtn.onclick = () => {
-                    window.open('https://staff.skbkontur.ru/survey/69df26ff76480cd7d9c0e088', '_blank');
-                };
-            }
-            
+            // Кнопка перезапуска
             const restartBtn = document.createElement('button');
             restartBtn.className = 'restart-link';
             restartBtn.innerText = '🎭 Сначала / Перечитать дневник режиссера';
