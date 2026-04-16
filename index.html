@@ -385,7 +385,7 @@ inviteDiv.innerHTML = `
             text-align: center;
         " onmouseover="this.style.background='linear-gradient(135deg, #a87d2a, #7a5a1a)'; this.style.transform='scale(1.02)';" 
            onmouseout="this.style.background='linear-gradient(135deg, #8b691b, #5c4512)'; this.style.transform='scale(1)';">
-            🎭 СТАТЬ ПОМОЩНИКОМ РЕЖИССЁРА НА КУКС 2026
+            🎭 СТАТЬ ПОМОЩНИКОМ РЕЖИССЕРА НА КУКС 2026
         </button>
     </div>
     
@@ -401,37 +401,20 @@ inviteDiv.innerHTML = `
             <span class="skill-badge" style="color:#ffffff; background:#d4af3740; border-color:#d4af37;">🎭 Театр</span>
             <span class="skill-badge" style="color:#ffffff; background:#d4af3740; border-color:#d4af37;">✨ Грим</span>
         </div>
-        <div style="margin: 10px 0; color:#ffffff; text-shadow: 0 1px 2px rgba(0,0,0,0.5);"><strong>Твое задание:</strong> придумай сцену в стиле «театр + синергия»</div>
-        <a href="https://staff.skbkontur.ru/survey/69df26ff76480cd7d9c0e088" target="_blank" class="apply-btn" id="applyNowBtn" style="display: inline-block; color:#ffffff; background:#b57c1c;">
-            📝 ЗАПОЛНИТЬ АНКЕТУ
+                <a href="https://staff.skbkontur.ru/survey/69df26ff76480cd7d9c0e088" target="_blank" class="apply-btn" id="applyNowBtn" style="display: inline-block; color:#ffffff; background:#b57c1c;">
+            📝 Стать помощником режиссера КУКС 2026 
         </a>
     </div>
 `;
 actionBlock.appendChild(inviteDiv);
 
-// Обработчик для новой большой кнопки (левая область)
-const assistantBtn = document.getElementById('assistantBtn');
-if (assistantBtn) {
-    assistantBtn.onclick = () => {
-        // Открываем ссылку на анкету в новой вкладке
-        window.open('https://staff.skbkontur.ru/survey/69df26ff76480cd7d9c0e088', '_blank');
-        alert("✨ Спасибо за интерес! Твоя заявка принята. Мы свяжемся с тобой, чтобы обсудить твою сцену. Добро пожаловать в команду режиссёра УКС!");
-    };
-}
-
 // Обработчик для старой кнопки (правая область)
 const applyBtn = document.getElementById('applyNowBtn');
 if (applyBtn) {
     applyBtn.onclick = () => {
-        alert("✨ Спасибо! Твоя заявка принята. Мы свяжемся с тобой, чтобы обсудить твою сцену. Добро пожаловать в команду режиссёра УКС!");        };
+        alert("✨ Заполняй анкету и вперед!");        };
     }
     
-    // Обработчик для старой кнопки (правая область)
-    const applyBtn = document.getElementById('applyNowBtn');
-    if (applyBtn) {
-        applyBtn.onclick = () => {
-            alert("✨ Спасибо! Твоя заявка принята. Мы свяжемся с тобой, чтобы обсудить твою сцену. Добро пожаловать в команду режиссёра УКС!");
-        };
                 }
             
             // Кнопка перезапуска (начать сначала)
