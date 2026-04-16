@@ -158,26 +158,6 @@
             color: white;
         }
 
-        .apply-btn {
-            background: #b57c1c;
-            color: white;
-            font-weight: bold;
-            padding: 12px 30px;
-            border-radius: 50px;
-            display: inline-block;
-            margin: 12px 0 8px;
-            cursor: pointer;
-            border: none;
-            font-size: 1rem;
-            transition: 0.2s;
-            text-decoration: none;
-        }
-
-        .apply-btn:hover {
-            background: #d4af37;
-            color: #0a0708;
-        }
-
         .restart-link {
             background: none;
             border: 1px solid #b8944e;
@@ -303,7 +283,6 @@
         actionBlock.innerHTML = '';
         
         if (scene.choices && scene.choices.length > 0) {
-            // Есть выбор — показываем кнопки
             scene.choices.forEach(choice => {
                 const btn = document.createElement('button');
                 btn.className = 'choice-btn';
@@ -315,51 +294,40 @@
                 choicesBlock.appendChild(btn);
             });
         } else {
-            // Финальная сцена — только одна кнопка
+            // Финальная сцена — ТОЛЬКО ОДНА КНОПКА
             const inviteDiv = document.createElement('div');
             inviteDiv.className = 'invite-card';
-            inviteDiv.style.display = 'flex';
-            inviteDiv.style.flexDirection = 'row';
-            inviteDiv.style.justifyContent = 'space-between';
-            inviteDiv.style.alignItems = 'center';
-            inviteDiv.style.flexWrap = 'wrap';
-            inviteDiv.style.gap = '20px';
-            inviteDiv.style.backgroundColor = 'rgba(0,0,0,0.7)';
+            inviteDiv.style.textAlign = 'center';
             
             inviteDiv.innerHTML = `
-                <div style="flex: 1; min-width: 250px;">
-                    <a href="https://staff.skbkontur.ru/survey/69df26ff76480cd7d9c0e088" target="_blank" style="
-                        background: linear-gradient(135deg, #8b691b, #5c4512);
-                        color: white;
-                        font-size: 1rem;
-                        font-weight: bold;
-                        padding: 18px 20px;
-                        border-radius: 60px;
-                        border: none;
-                        cursor: pointer;
-                        width: 100%;
-                        display: block;
-                        text-align: center;
-                        text-decoration: none;
-                        font-family: inherit;
-                        box-sizing: border-box;
-                    " onmouseover="this.style.background='linear-gradient(135deg, #a87d2a, #7a5a1a)'" 
-                       onmouseout="this.style.background='linear-gradient(135deg, #8b691b, #5c4512)'">
-                        🎭 СТАТЬ ПОМОЩНИКОМ РЕЖИССЕРА НА КУКС 2026
-                    </a>
+                <div style="font-size:1.7rem; color:white; margin-bottom:10px;">🎭 КУКС 2026 🎭</div>
+                <div style="color:white; margin-bottom:15px;">Стань помощником режиссера и войди в закулисье конференции!</div>
+                <div class="skills" style="margin-bottom:20px;">
+                    <span class="skill-badge">✍️ Стафф</span>
+                    <span class="skill-badge">🎨 Фигма</span>
+                    <span class="skill-badge">🎬 Видео/Актер</span>
+                    <span class="skill-badge">💻 Вайбкодинг</span>
+                    <span class="skill-badge">🎭 Театр</span>
+                    <span class="skill-badge">✨ Грим</span>
                 </div>
-                <div style="flex: 2; min-width: 260px;">
-                    <div style="font-size:1.7rem; color:white;">🎭 КУКС 2026 🎭</div>
-                    <div style="color:white;">Стань помощником режиссера и войди в закулисье конференции!</div>
-                    <div class="skills">
-                        <span class="skill-badge">✍️ Стафф</span>
-                        <span class="skill-badge">🎨 Фигма</span>
-                        <span class="skill-badge">🎬 Видео/Актер</span>
-                        <span class="skill-badge">💻 Вайбкодинг</span>
-                        <span class="skill-badge">🎭 Театр</span>
-                        <span class="skill-badge">✨ Грим</span>
-                    </div>
-                </div>
+                <a href="https://staff.skbkontur.ru/article/69d5dd76f876607bfa6e2f26" target="_blank" style="
+                    background: linear-gradient(135deg, #8b691b, #5c4512);
+                    color: white;
+                    font-size: 1.1rem;
+                    font-weight: bold;
+                    padding: 16px 32px;
+                    border-radius: 60px;
+                    border: none;
+                    cursor: pointer;
+                    display: inline-block;
+                    text-align: center;
+                    text-decoration: none;
+                    font-family: inherit;
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.background='linear-gradient(135deg, #a87d2a, #7a5a1a)'; this.style.transform='scale(1.02)';" 
+                   onmouseout="this.style.background='linear-gradient(135deg, #8b691b, #5c4512)'; this.style.transform='scale(1)';">
+                    🎭 СТАТЬ ПОМОЩНИКОМ РЕЖИССЕРА НА КУКС 2026
+                </a>
             `;
             actionBlock.appendChild(inviteDiv);
             
