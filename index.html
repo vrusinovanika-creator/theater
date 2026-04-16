@@ -130,7 +130,8 @@
 
         .next-area {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
             margin-top: 10px;
         }
 
@@ -225,7 +226,7 @@
         <img id="novelImage" class="illustration-img" src="" alt="сцена театра">
     </div>
     <div class="novel-panel">
-        <div class="speaker" id="speakerName">📓 Дневник режиссёра</div>
+        <div class="speaker" id="speakerName">📓 Дневник режиссера</div>
         <div class="dialogue" id="dialogueText">
             Загрузка сцены...
         </div>
@@ -240,22 +241,18 @@
     // 1. Положите картинки в ту же папку, что и HTML-файл.
     // 2. Замените пути в объекте IMAGES ниже (например "my_binocular.jpg").
     // 3. Рекомендуемый размер: 1100x500px, стиль — театр, золото, кулисы, маски.
-    // 
-    // Если картинок нет — игра покажет цветные SVG-заглушки в стиле "дорогой театр".
-    // ==================================================================
-
-    // 🎭 СЮЖЕТ: "Дневник режиссёра" — небольшая новелла о конференции УКС 2026
-    // Мы ищем помощников режиссёра, рассказываем про театр и синергию.
+    
+    // 🎭 СЮЖЕТ: "Дневник режиссера" — небольшая новелла о конференции УКС 2026
+    // Мы ищем помощников режиссера, рассказываем про театр и синергию.
     
     // ------ ЗДЕСЬ ВСТАВЬТЕ СВОИ ПУТИ К ИЛЛЮСТРАЦИЯМ (можно оставить заглушки) ------
     const IMAGES = {
-        binocular: "binocular.png",     // замените на "my_binocular.png"
-        directorDesk: "director.png",    // замените на "my_director.jpg"
-        theatreStage: "stage.png", // замените на "my_stage.png"
-        assistants: "assistants.png",        // замените на "my_assistants.jpg"
-        finalScene: "final.png"       // замените на "my_final.png"
+        binocular: "binocular.png",
+        directorDesk: "director.png",
+        theatreStage: "stage.png",
+        assistants: "assistants.png",
+        finalScene: "final.png"
     };
-    // -----------------------------------------------------------------
     
     // СЦЕНАРИЙ (небольшой сюжет + ветвление)
     const scenes = {
@@ -273,7 +270,7 @@
             text: "КУКС состоится 29 мая. В этом году мы превращаем конференцию в театр. Зритель не видит, кто поднял занавес, кто подал реквизит — он видит магию целого, настоящее искусство поддержки. Так и в клиентском сервисе: консультант передает запрос экспертам, все ЦК работают как единый организм.",
             image: "theatreStage",
             choices: [
-                { text: " Кто создает эту магию?", nextScene: 3 }
+                { text: "Кто создает эту магию?", nextScene: 3 }
             ]
         },
         2: {
@@ -295,7 +292,7 @@
         },
         4: {
             speaker: "Творческое задание",
-            text: "Придумайте одну «сцену» (интерактив, активность, зону) для конференции УКС 2026. Условия: обыгрывает театр и синергию, вовлекает зрителей, мало ресурсов, реализуема онлайн или офлайн. Например: «Зона неожиданного реквизита» — участники помогают актёру-клиенту с помощью подручных средств, демонстрируя командную работу.",
+            text: "Придумайте одну «сцену» (интерактив, активность, зону) для конференции УКС 2026. Условия: обыгрывает театр и синергию, вовлекает зрителей, мало ресурсов, реализуема онлайн или офлайн. Например: «Зона неожиданного реквизита» — участники помогают актеру-клиенту с помощью подручных средств, демонстрируя командную работу.",
             image: "theatreStage",
             choices: [
                 { text: "⭐ Я готов стать помощником режиссера!", nextScene: 5 },
@@ -306,7 +303,7 @@
             speaker: "Финал — твой выход!",
             text: "Потрясающе! Ты чувствуешь театр. Конференция УКС 2026 состоится 29 мая, и мы ждем именно тебя — за кулисами или в зале. Заполни анкету, пришли свою «сцену» и стань соавтором яркого события. Вместе мы создадим спектакль, который запомнят!",
             image: "finalScene",
-            choices: [] // нет выбора — покажем анкету
+            choices: []
         }
     };
     
@@ -330,7 +327,6 @@
         if (!scene) return;
         
         speakerEl.innerText = scene.speaker;
-        // поддержка переноса строк
         dialogueEl.innerHTML = scene.text.replace(/\n/g, '<br>');
         setImage(scene.image);
         
@@ -351,73 +347,81 @@
                 choicesBlock.appendChild(btn);
             });
         } else {
-    // Финальная сцена — анкета + кнопка возврата
-const inviteDiv = document.createElement('div');
-inviteDiv.className = 'invite-card';
-inviteDiv.style.display = 'flex';
-inviteDiv.style.flexDirection = 'row';
-inviteDiv.style.justifyContent = 'space-between';
-inviteDiv.style.alignItems = 'center';
-inviteDiv.style.flexWrap = 'wrap';
-inviteDiv.style.gap = '20px';
-inviteDiv.style.backgroundColor = 'rgba(0,0,0,0.7)'; // затемнение фона для контраста
-
-inviteDiv.innerHTML = `
-    <!-- ЛЕВАЯ ОБЛАСТЬ: большая кнопка с полным текстом -->
-    <div style="flex: 1; min-width: 280px;">
-        <button id="assistantBtn" style="
-            background: linear-gradient(135deg, #8b691b, #5c4512);
-            color: #ffffff;
-            font-size: 1.15rem;
-            font-weight: bold;
-            padding: 20px 24px;
-            border-radius: 60px;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 14px rgba(0,0,0,0.4);
-            font-family: inherit;
-            letter-spacing: 1px;
-            line-height: 1.4;
-            white-space: normal;
-            word-wrap: break-word;
-            text-align: center;
-        " onmouseover="this.style.background='linear-gradient(135deg, #a87d2a, #7a5a1a)'; this.style.transform='scale(1.02)';" 
-           onmouseout="this.style.background='linear-gradient(135deg, #8b691b, #5c4512)'; this.style.transform='scale(1)';">
-            🎭 СТАТЬ ПОМОЩНИКОМ РЕЖИССЕРА НА КУКС 2026
-        </button>
-    </div>
-    
-    <!-- ПРАВАЯ ОБЛАСТЬ (весь текст белый) -->
-    <div style="flex: 2; min-width: 280px;">
-        <div style="font-size:1.9rem; color:#ffffff; margin-bottom:8px; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">🎭 КУКС 2026 🎭</div>
-        <div style="color:#ffffff; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">Стань помощником режисера и войди в закулисье главной конференции по клиентскому сервису!</div>
-        <div class="skills" style="color:#ffffff;">
-            <span class="skill-badge" style="color:#ffffff; background:#d4af3740; border-color:#d4af37;">✍️ Стафф</span>
-            <span class="skill-badge" style="color:#ffffff; background:#d4af3740; border-color:#d4af37;">🎨 Фигма</span>
-            <span class="skill-badge" style="color:#ffffff; background:#d4af3740; border-color:#d4af37;">🎬 Видео/Актер</span>
-            <span class="skill-badge" style="color:#ffffff; background:#d4af3740; border-color:#d4af37;">💻 Вайбкодинг</span>
-            <span class="skill-badge" style="color:#ffffff; background:#d4af3740; border-color:#d4af37;">🎭 Театр</span>
-            <span class="skill-badge" style="color:#ffffff; background:#d4af3740; border-color:#d4af37;">✨ Грим</span>
-        </div>
-                <a href="https://staff.skbkontur.ru/survey/69df26ff76480cd7d9c0e088" target="_blank" class="apply-btn" id="applyNowBtn" style="display: inline-block; color:#ffffff; background:#b57c1c;">
-            📝 Стать помощником режиссера КУКС 2026 
-        </a>
-    </div>
-`;
-actionBlock.appendChild(inviteDiv);
-
-// Обработчик для старой кнопки (правая область)
-const applyBtn = document.getElementById('applyNowBtn');
-if (applyBtn) {
-    applyBtn.onclick = () => {
-        alert("✨ Заполняй анкету и вперед!");        };
-    }
-    
-                }
+            // Финальная сцена — анкета + кнопка возврата
+            const inviteDiv = document.createElement('div');
+            inviteDiv.className = 'invite-card';
+            inviteDiv.style.display = 'flex';
+            inviteDiv.style.flexDirection = 'row';
+            inviteDiv.style.justifyContent = 'space-between';
+            inviteDiv.style.alignItems = 'center';
+            inviteDiv.style.flexWrap = 'wrap';
+            inviteDiv.style.gap = '20px';
+            inviteDiv.style.backgroundColor = 'rgba(0,0,0,0.7)';
             
-            // Кнопка перезапуска (начать сначала)
+            inviteDiv.innerHTML = `
+                <!-- ЛЕВАЯ ОБЛАСТЬ: большая кнопка с полным текстом -->
+                <div style="flex: 1; min-width: 280px;">
+                    <button id="assistantBtn" style="
+                        background: linear-gradient(135deg, #8b691b, #5c4512);
+                        color: #ffffff;
+                        font-size: 1.15rem;
+                        font-weight: bold;
+                        padding: 20px 24px;
+                        border-radius: 60px;
+                        border: none;
+                        cursor: pointer;
+                        width: 100%;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 6px 14px rgba(0,0,0,0.4);
+                        font-family: inherit;
+                        letter-spacing: 1px;
+                        line-height: 1.4;
+                        white-space: normal;
+                        word-wrap: break-word;
+                        text-align: center;
+                    " onmouseover="this.style.background='linear-gradient(135deg, #a87d2a, #7a5a1a)'; this.style.transform='scale(1.02)';" 
+                       onmouseout="this.style.background='linear-gradient(135deg, #8b691b, #5c4512)'; this.style.transform='scale(1)';">
+                        🎭 СТАТЬ ПОМОЩНИКОМ РЕЖИССЕРА НА КУКС 2026
+                    </button>
+                </div>
+                
+                <!-- ПРАВАЯ ОБЛАСТЬ (весь текст белый) -->
+                <div style="flex: 2; min-width: 280px;">
+                    <div style="font-size:1.9rem; color:#ffffff; margin-bottom:8px; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">🎭 КУКС 2026 🎭</div>
+                    <div style="color:#ffffff; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">Стань помощником режиссера и войди в закулисье главной конференции по клиентскому сервису!</div>
+                    <div class="skills" style="color:#ffffff;">
+                        <span class="skill-badge" style="color:#ffffff; background:#d4af3740; border-color:#d4af37;">✍️ Стафф</span>
+                        <span class="skill-badge" style="color:#ffffff; background:#d4af3740; border-color:#d4af37;">🎨 Фигма</span>
+                        <span class="skill-badge" style="color:#ffffff; background:#d4af3740; border-color:#d4af37;">🎬 Видео/Актер</span>
+                        <span class="skill-badge" style="color:#ffffff; background:#d4af3740; border-color:#d4af37;">💻 Вайбкодинг</span>
+                        <span class="skill-badge" style="color:#ffffff; background:#d4af3740; border-color:#d4af37;">🎭 Театр</span>
+                        <span class="skill-badge" style="color:#ffffff; background:#d4af3740; border-color:#d4af37;">✨ Грим</span>
+                    </div>
+                    <a href="https://staff.skbkontur.ru/survey/69df26ff76480cd7d9c0e088" target="_blank" class="apply-btn" id="applyNowBtn" style="display: inline-block; color:#ffffff; background:#b57c1c;">
+                        📝 Стать помощником режиссера КУКС 2026 
+                    </a>
+                </div>
+            `;
+            actionBlock.appendChild(inviteDiv);
+            
+            // Обработчик для левой большой кнопки
+            const assistantBtn = document.getElementById('assistantBtn');
+            if (assistantBtn) {
+                assistantBtn.onclick = () => {
+                    window.open('https://staff.skbkontur.ru/survey/69df26ff76480cd7d9c0e088', '_blank');
+                    alert("✨ Заполняй анкету и вперед!");
+                };
+            }
+            
+            // Обработчик для правой кнопки
+            const applyBtn = document.getElementById('applyNowBtn');
+            if (applyBtn) {
+                applyBtn.onclick = () => {
+                    alert("✨ Заполняй анкету и вперед!");
+                };
+            }
+            
+            // Кнопка перезапуска
             const restartBtn = document.createElement('button');
             restartBtn.className = 'restart-link';
             restartBtn.innerText = '🎭 Сначала / Перечитать дневник режиссера';
@@ -435,11 +439,5 @@ if (applyBtn) {
     renderScene(0);
 </script>
 
-<!-- Дополнительное пояснение для разработчика -->
-<div style="display: none;"> 
-    Инструкция: В объекте IMAGES замените URL на свои изображения. 
-    Например: binocular: "images/teatr_binokl.jpg". 
-    Сюжет можно расширять, добавляя новые сцены в объект scenes.
-</div>
 </body>
 </html>
