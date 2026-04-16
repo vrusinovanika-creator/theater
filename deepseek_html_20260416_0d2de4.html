@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>УКС 2026: Дневник режиссёра — визуальная новелла</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1218 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Playfair Display', 'Georgia', serif;
+            padding: 20px;
+        }
+
+        /* Главный контейнер как сцена */
+        .visual-novel {
+            max-width: 1100px;
+            width: 100%;
+            background: #0c0a0e;
+            border-radius: 40px;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.7), 0 0 0 2px rgba(212,175,55,0.3);
+            overflow: hidden;
+        }
+
+        /* Верхняя часть — иллюстрация */
+        .illustration-frame {
+            background: #050305;
+            min-height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            border-bottom: 3px solid #d4af37;
+            overflow: hidden;
+        }
+
+        .illustration-img {
+            max-width: 100%;
+            max-height: 450px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        /* Декоративные занавески */
+        .curtain {
+            position: absolute;
+            top: 0;
+            width: 70px;
+            height: 100%;
+            background: linear-gradient(90deg, #3b1e24, #1f0f13);
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .curtain-left { left: 0; }
+        .curtain-right { right: 0; }
+
+        /* Нижняя панель — текст и выборы */
+        .novel-panel {
+            background: #161015;
+            padding: 28px 32px 32px;
+            border-top: 1px solid #d4af3760;
+        }
+
+        .speaker {
+            display: inline-block;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: #d4af3720;
+            padding: 4px 16px;
+            border-radius: 30px;
+            color: #e7cfa1;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .dialogue {
+            font-size: 1.35rem;
+            line-height: 1.5;
+            color: #f5ede1;
+            background: rgba(0,0,0,0.6);
+            padding: 22px 26px;
+            border-radius: 28px;
+            margin: 12px 0 28px;
+            backdrop-filter: blur(4px);
+            border-left: 4px solid #d4af37;
+            font-weight: 400;
+        }
+
+        .choices {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .choice-btn {
+            background: linear-gradient(95deg, #2a1e26, #1a1118);
+            border: 1px solid #b8944e;
+            color: #faeecb;
+            font-size: 1rem;
+            font-family: inherit;
+            padding: 12px 26px;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: 500;
+        }
+
+        .choice-btn:hover {
+            background: #4d3340;
+            border-color: #e6bf6b;
+            transform: scale(1.02);
+            box-shadow: 0 0 12px rgba(212,175,55,0.4);
+        }
+
+        .next-area {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .next-btn {
+            background: #d4af37;
+            border: none;
+            padding: 12px 34px;
+            font-size: 1.15rem;
+            font-weight: bold;
+            border-radius: 40px;
+            cursor: pointer;
+            font-family: inherit;
+            color: #1d0f15;
+            transition: 0.2s;
+        }
+
+        .next-btn:hover {
+            background: #f3cd74;
+            transform: scale(0.97);
+        }
+
+        /* Финальная карточка анкеты */
+        .invite-card {
+            background: #261e24cc;
+            backdrop-filter: blur(12px);
+            border-radius: 36px;
+            padding: 24px;
+            text-align: center;
+            border: 2px solid #e2bc6b;
+            margin-top: 16px;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 18px 0;
+        }
+
+        .skill-badge {
+            background: #d4af3740;
+            border-radius: 50px;
+            padding: 5px 15px;
+            font-size: 0.85rem;
+            border: 1px solid #e7bd68;
+        }
+
+        .apply-btn {
+            background: #b57c1c;
+            color: white;
+            font-weight: bold;
+            padding: 12px 30px;
+            border-radius: 50px;
+            display: inline-block;
+            margin: 12px 0 8px;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            transition: 0.2s;
+            text-decoration: none;
+        }
+
+        .apply-btn:hover {
+            background: #d4af37;
+            color: #0a0708;
+        }
+
+        .restart-link {
+            background: none;
+            border: 1px solid #b8944e;
+            color: #e7cfa1;
+            padding: 6px 20px;
+            border-radius: 40px;
+            margin-top: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 700px) {
+            .dialogue { font-size: 1rem; padding: 16px; }
+            .novel-panel { padding: 20px; }
+            .illustration-frame { min-height: 260px; }
+        }
+    </style>
+</head>
+<body>
+<div class="visual-novel" id="novelApp">
+    <div class="illustration-frame">
+        <div class="curtain curtain-left"></div>
+        <div class="curtain curtain-right"></div>
+        <img id="novelImage" class="illustration-img" src="" alt="сцена театра">
+    </div>
+    <div class="novel-panel">
+        <div class="speaker" id="speakerName">📓 Дневник режиссёра</div>
+        <div class="dialogue" id="dialogueText">
+            Загрузка сцены...
+        </div>
+        <div id="choicesBlock" class="choices"></div>
+        <div id="actionBlock" class="next-area"></div>
+    </div>
+</div>
+
+<script>
+    // ========== 📌 ИНСТРУКЦИЯ ПО ДОБАВЛЕНИЮ СВОИХ ИЛЛЮСТРАЦИЙ ==========
+    // Чтобы добавить свои качественные изображения (PNG/JPG/WEBP):
+    // 1. Положите картинки в ту же папку, что и HTML-файл.
+    // 2. Замените пути в объекте IMAGES ниже (например "my_binocular.jpg").
+    // 3. Рекомендуемый размер: 1100x500px, стиль — театр, золото, кулисы, маски.
+    // 
+    // Если картинок нет — игра покажет цветные SVG-заглушки в стиле "дорогой театр".
+    // ==================================================================
+
+    // 🎭 СЮЖЕТ: "Дневник режиссёра" — небольшая новелла о конференции УКС 2026
+    // Мы ищем помощников режиссёра, рассказываем про театр и синергию.
+    
+    // ------ ЗДЕСЬ ВСТАВЬТЕ СВОИ ПУТИ К ИЛЛЮСТРАЦИЯМ (можно оставить заглушки) ------
+    const IMAGES = {
+        binocular: "https://placehold.co/1100x500/2a1a22/d4af37?text=🎭+Бинокли+готовы+УКС+2026",     // замените на "my_binocular.png"
+        directorDesk: "https://placehold.co/1100x500/2a1f24/eac270?text=📓+Режиссёр+за+сценарием",    // замените на "my_director.jpg"
+        theatreStage: "https://placehold.co/1100x500/331f2a/dbbc7a?text=🎪+Театральная+сцена+Синергия", // замените на "my_stage.png"
+        assistants: "https://placehold.co/1100x500/221b20/f3d48b?text=🎭+Помощники+режиссёра",        // замените на "my_assistants.jpg"
+        finalScene: "https://placehold.co/1100x500/1a131c/ffdfa5?text=🌟+Стань+частью+премьеры"       // замените на "my_final.png"
+    };
+    // -----------------------------------------------------------------
+    
+    // СЦЕНАРИЙ (небольшой сюжет + ветвление)
+    const scenes = {
+        0: {
+            speaker: "🎬 Режиссёр УКС",
+            text: "«Готовим бинокли! Девятнадцатая конференция УКС превратится в генеральный прогон. Тема года — театр. Я открываю дневник... Мы поставим спектакль про клиентскую поддержку, где синергия — главный герой. Но без команды за кулисами магия не случится.»",
+            image: "binocular",
+            choices: [
+                { text: "📖 Что такое конференция УКС?", nextScene: 1 },
+                { text: "🎭 Расскажи про театр и синергию", nextScene: 2 }
+            ]
+        },
+        1: {
+            speaker: "📜 Дневник режиссёра",
+            text: "УКС — это управление клиентским сервисом. 29 мая в гибридном формате. В этом году мы превращаем конференцию в театр. Зритель не видит, как поднят занавес, кто подал реквизит — он видит магию целого. Так и клиентский сервис: поддержка передаёт запрос экспертам, отделы работают как единый организм.",
+            image: "theatreStage",
+            choices: [
+                { text: "🎭 Кто создаёт эту магию?", nextScene: 3 }
+            ]
+        },
+        2: {
+            speaker: "✨ О синергии",
+            text: "Синергия — это когда поддержка бесшумно передаёт обращение экспертам, а другие отделы меняют инфраструктуру быстрее, чем клиент моргнул. На конференции УКС мы покажем это через театральные приёмы. Прямо сейчас я собираю труппу — помощников режиссёра.",
+            image: "directorDesk",
+            choices: [
+                { text: "🔍 Кого вы ищете?", nextScene: 3 }
+            ]
+        },
+        3: {
+            speaker: "🎭 Приглашаем помощников режиссёра",
+            text: "Нам нужны те, кто умеет:\n• Писать статьи на Стаффе\n• Работать в Фигме\n• Снимать ролики или играть на сцене\n• Вайбкодить / кодить\n• Имеет театральный опыт\n• Делать дизайн презентаций\n• Помогать офлайн на конференции\n• Создавать грим / аквагрим",
+            image: "assistants",
+            choices: [
+                { text: "🎪 Творческое задание?", nextScene: 4 },
+                { text: "💡 Хочу придумать сцену!", nextScene: 4 }
+            ]
+        },
+        4: {
+            speaker: "📝 Творческое задание",
+            text: "Придумайте одну «сцену» (интерактив, активность, зону) для конференции УКС 2026. Условия: обыгрывает театр и синергию, вовлекает зрителей, мало ресурсов, реализуема онлайн или офлайн. Например: «Зона неожиданного реквизита» — участники помогают актёру-клиенту с помощью подручных средств, демонстрируя командную работу.",
+            image: "theatreStage",
+            choices: [
+                { text: "⭐ Я готов стать помощником режиссёра!", nextScene: 5 },
+                { text: "🎭 Где подать заявку?", nextScene: 5 }
+            ]
+        },
+        5: {
+            speaker: "🎉 Финал — твой выход!",
+            text: "Потрясающе! Ты чувствуешь театр. Конференция УКС 2026 состоится 29 мая, и мы ждём именно тебя — за кулисами или в зале. Заполни анкету, пришли свою «сцену» и стань соавтором яркого события. Вместе мы создадим спектакль, который запомнят!",
+            image: "finalScene",
+            choices: [] // нет выбора — покажем анкету
+        }
+    };
+    
+    let currentSceneId = 0;
+    
+    // DOM элементы
+    const imgEl = document.getElementById('novelImage');
+    const speakerEl = document.getElementById('speakerName');
+    const dialogueEl = document.getElementById('dialogueText');
+    const choicesBlock = document.getElementById('choicesBlock');
+    const actionBlock = document.getElementById('actionBlock');
+    
+    function setImage(imgKey) {
+        const url = IMAGES[imgKey] || IMAGES.binocular;
+        imgEl.src = url;
+        imgEl.alt = `иллюстрация: ${imgKey}`;
+    }
+    
+    function renderScene(sceneId) {
+        const scene = scenes[sceneId];
+        if (!scene) return;
+        
+        speakerEl.innerText = scene.speaker;
+        // поддержка переноса строк
+        dialogueEl.innerHTML = scene.text.replace(/\n/g, '<br>');
+        setImage(scene.image);
+        
+        choicesBlock.innerHTML = '';
+        actionBlock.innerHTML = '';
+        
+        if (scene.choices && scene.choices.length > 0) {
+            scene.choices.forEach(choice => {
+                const btn = document.createElement('button');
+                btn.className = 'choice-btn';
+                btn.innerText = choice.text;
+                btn.onclick = () => {
+                    if (choice.nextScene !== undefined) {
+                        currentSceneId = choice.nextScene;
+                        renderScene(currentSceneId);
+                    }
+                };
+                choicesBlock.appendChild(btn);
+            });
+        } else {
+            // Финальная сцена — анкета + кнопка возврата
+            const inviteDiv = document.createElement('div');
+            inviteDiv.className = 'invite-card';
+            inviteDiv.innerHTML = `
+                <div style="font-size:1.9rem; margin-bottom:8px;">🎭 КУКС 2026 🎭</div>
+                <div>Стань помощником режиссёра и войди в закулисье главной конференции по клиентскому сервису!</div>
+                <div class="skills">
+                    <span class="skill-badge">✍️ Стафф</span>
+                    <span class="skill-badge">🎨 Фигма</span>
+                    <span class="skill-badge">🎬 Видео/Актёр</span>
+                    <span class="skill-badge">💻 Вайбкодинг</span>
+                    <span class="skill-badge">🎭 Театр</span>
+                    <span class="skill-badge">✨ Грим</span>
+                </div>
+                <div style="margin: 10px 0;"><strong>Твоё задание:</strong> придумай сцену в стиле «театр + синергия»</div>
+                <button id="applyNowBtn" class="apply-btn">📝 ЗАПОЛНИТЬ АНКЕТУ ПОМОЩНИКА</button>
+                <div><small>29 мая | Гибридный формат | #УКС2026</small></div>
+            `;
+            actionBlock.appendChild(inviteDiv);
+            
+            const applyBtn = document.getElementById('applyNowBtn');
+            if (applyBtn) {
+                applyBtn.onclick = () => {
+                    alert("✨ Спасибо! Твоя заявка принята. Мы свяжемся с тобой, чтобы обсудить твою сцену. Добро пожаловать в команду режиссёра УКС!");
+                };
+            }
+            
+            // Кнопка перезапуска (начать сначала)
+            const restartBtn = document.createElement('button');
+            restartBtn.className = 'restart-link';
+            restartBtn.innerText = '🎭 Сначала / Перечитать дневник режиссёра';
+            restartBtn.style.marginTop = '20px';
+            restartBtn.style.cursor = 'pointer';
+            restartBtn.onclick = () => {
+                currentSceneId = 0;
+                renderScene(0);
+            };
+            actionBlock.appendChild(restartBtn);
+        }
+    }
+    
+    // Запуск новеллы
+    renderScene(0);
+</script>
+
+<!-- Дополнительное пояснение для разработчика -->
+<div style="display: none;"> 
+    Инструкция: В объекте IMAGES замените URL на свои изображения. 
+    Например: binocular: "images/teatr_binokl.jpg". 
+    Сюжет можно расширять, добавляя новые сцены в объект scenes.
+</div>
+</body>
+</html>
